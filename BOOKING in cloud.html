@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+    <title>Booking appointment App</title>
+</head>
+<body>
+    <form id="form" onsubmit="savetocloud(event)"> <!--on submit this function will be called which have input as event which here in this case is submit button click -->
+        <label for="name">Name:</label>
+        <input type="text" id="nametag" name="name" >
+        <label for="email">Email Id:</label>
+        <input type="text" id="emailtag" name="email">
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phonetag" name="phone">
+        <input type="submit" id="submit">
+    </form>
+    <ul id="itemlist"></ul> <!--we dont want to store items in form we wanted to store outside the form-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"></script>
+    <script>
+        function savetocloud(event){
+            event.preventDefault();
+
+            let name = event.target.name.value;
+            let email = event.target.email.value;
+            let phone = event.target.phone.value;
+
+            let data = {
+                 name,
+                 email,
+                 phone
+            };
+            axios.post("https://crudcrud.com/api/bdfdfdd3bcea462bab375ce60d5/appointmentData",data)
+            .then((data)=>{
+                showonscreen(data.data);
+            })
+            .catch((err)=>{
+                document.body.innerHTML = document.body.innerHTML + "<h3>Something is wrong</h3>"
+            })
+             
+            function showonscreen(data){
+                let perentelement = document.getElementById('itemlist');
+                let childelement = document.createElement('li');
+                let text = document.createTextNode(data.name+' '+data.email+' '+data.phone+'   ');
+                childelement.appendChild(text);
+                let delbtn = document.createElement('input');
+                delbtn.type = 'button';
+                delbtn.value = 'Delete';
+
+                delbtn.onclick = deleteelement; //This will only trigger when button is clicked.
+                function deleteelement(){  
+                    
+                    perentelement.removeChild(childelement);
+                }
+                childelement.appendChild(delbtn);
+                
+
+                /*//Alternative way is:Directly adding html into parent element
+                perentelement.innerHTML = perentelement.innerHTML + '<li>' + data.name + ' ' + data.email + ' ' + data.phone + ' '+ '</li>';*/
+
+
+                let edit = document.createElement('input');
+                edit.type = 'button';
+                edit.value = 'Edit';
+                let nameinput = document.getElementById('nametag');
+                let emailinput = document.getElementById('emailtag');
+                let phoneinput = document.getElementById('phonetag');
+                edit.onclick = () => {
+                    nameinput.value = name;
+                    emailinput.value = email;
+                    phoneinput.value = phone; 
+                     
+                    perentelement.removeChild(childelement);
+                }
+                childelement.appendChild(edit);
+                perentelement.appendChild(childelement);                
+        }
+        }
+    </script>
+</body>
+</html>
