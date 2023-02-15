@@ -29,10 +29,10 @@
                  phone
             };
 
-            axios.post("https://crudcrud.com/api/fcd3b46f594e4287959d4d61b97f6cd7/appoinment",data)
+            axios.post("https://crudcrud.com/api/8881dfd2a9b94ee0847e95d383d6922b/appoinment",data)
             .then((data)=>{
 
-                axios.get("https://crudcrud.com/api/fcd3b46f594e4287959d4d61b97f6cd7/appoinment")
+                axios.get("https://crudcrud.com/api/8881dfd2a9b94ee0847e95d383d6922b/appoinment")
                 .then((data)=>{
                 for(let i=0;i<data.data.length;i++)
                     {
@@ -55,9 +55,9 @@
                 delbtn.onclick = deleteelement; //This will only trigger when button is clicked.
                 function deleteelement(){  
                     axios
-                    .delete(`https://crudcrud.com/api/fcd3b46f594e4287959d4d61b97f6cd7/appoinment/${data._id}`)
+                    .delete(`https://crudcrud.com/api/8881dfd2a9b94ee0847e95d383d6922b/appoinment/${data._id}`)
                     .then((data)=>{
-                        axios.get("https://crudcrud.com/api/fcd3b46f594e4287959d4d61b97f6cd7/appoinment")
+                        axios.get("https://crudcrud.com/api/8881dfd2a9b94ee0847e95d383d6922b/appoinment")
                         .then((data)=>{
                         for(let i=0;i<data.data.length;i++)
                             {
@@ -82,14 +82,14 @@
                 let nameinput = document.getElementById('nametag');
                 let emailinput = document.getElementById('emailtag');
                 let phoneinput = document.getElementById('phonetag');
-                edit.onclick = (data) => {
+                edit.onclick = () => {
                     nameinput.value = data.name;
                     emailinput.value = data.email;
                     phoneinput.value = data.phone; 
                     axios
-                    .delete(`https://crudcrud.com/api/fcd3b46f594e4287959d4d61b97f6cd7/appoinment/${data._id}`)
+                    .delete(`https://crudcrud.com/api/8881dfd2a9b94ee0847e95d383d6922b/appoinment/${data._id}`)
                     .then((data)=>{
-                        axios.get("https://crudcrud.com/api/fcd3b46f594e4287959d4d61b97f6cd7/appoinment")
+                        axios.get("https://crudcrud.com/api/8881dfd2a9b94ee0847e95d383d6922b/appoinment")
                         .then()
                         .catch(err => console.log(err))
                     })
