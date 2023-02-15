@@ -29,31 +29,21 @@
                  phone
             };
 
-
-            axios.post("https://crudcrud.com/api/bdfdfdd3bcea462bab375ce609fb7bd5/appointmentData",data)
+            axios.post("https://crudcrud.com/api/fcd3b46f594e4287959d4d61b97f6cd7/appoinment",data)
             .then((data)=>{
-                //console.log(data.data);
-                //showonscreen(data.data);
-            })
-            .catch((err)=>{
-                document.body.innerHTML = document.body.innerHTML + "<h3>Something is wrong</h3>"
-            })
 
-           
-                axios.get("https://crudcrud.com/api/bdfdfdd3bcea462bab375ce609fb7bd5/appointmentData")
+                axios.get("https://crudcrud.com/api/fcd3b46f594e4287959d4d61b97f6cd7/appoinment")
                 .then((data)=>{
-                    console.log(response.data);
-                    for(let i=0;i<response.data.length;i++)
+                for(let i=0;i<data.data.length;i++)
                     {
-                        showonscreen(response.data[i]);
+                        showonscreen(data.data[i]);
                     }
                 })
-                .catch((error)=>{
-                    console.log(error);
-                })
-            
-
-            function showonscreen(data){
+                .catch(err => console.log(err))
+            })
+            .catch((err)=>{console.log(err)})
+             
+               function showonscreen(data){
                 let perentelement = document.getElementById('itemlist');
                 let childelement = document.createElement('li');
                 let text = document.createTextNode(data.name+' '+data.email+' '+data.phone+'   ');
@@ -64,11 +54,23 @@
 
                 delbtn.onclick = deleteelement; //This will only trigger when button is clicked.
                 function deleteelement(){  
-
-                    perentelement.removeChild(childelement);
+                    axios
+                    .delete(`https://crudcrud.com/api/fcd3b46f594e4287959d4d61b97f6cd7/appoinment/${data._id}`)
+                    .then((data)=>{
+                        axios.get("https://crudcrud.com/api/fcd3b46f594e4287959d4d61b97f6cd7/appoinment")
+                        .then((data)=>{
+                        for(let i=0;i<data.data.length;i++)
+                            {
+                                showonscreen(data.data[i]);
+                            }
+                        })
+                        .catch(err => console.log(err))
+                    })
+                    .catch((err)=>{console.log(err)})
                 }
                 childelement.appendChild(delbtn);
-
+                
+                
 
                 /*//Alternative way is:Directly adding html into parent element
                 perentelement.innerHTML = perentelement.innerHTML + '<li>' + data.name + ' ' + data.email + ' ' + data.phone + ' '+ '</li>';*/
@@ -80,12 +82,18 @@
                 let nameinput = document.getElementById('nametag');
                 let emailinput = document.getElementById('emailtag');
                 let phoneinput = document.getElementById('phonetag');
-                edit.onclick = () => {
-                    nameinput.value = name;
-                    emailinput.value = email;
-                    phoneinput.value = phone; 
-
-                    perentelement.removeChild(childelement);
+                edit.onclick = (data) => {
+                    nameinput.value = data.name;
+                    emailinput.value = data.email;
+                    phoneinput.value = data.phone; 
+                    axios
+                    .delete(`https://crudcrud.com/api/fcd3b46f594e4287959d4d61b97f6cd7/appoinment/${data._id}`)
+                    .then((data)=>{
+                        axios.get("https://crudcrud.com/api/fcd3b46f594e4287959d4d61b97f6cd7/appoinment")
+                        .then()
+                        .catch(err => console.log(err))
+                    })
+                    .catch((err)=>{console.log(err)})  
                 }
                 childelement.appendChild(edit);
                 perentelement.appendChild(childelement);                
