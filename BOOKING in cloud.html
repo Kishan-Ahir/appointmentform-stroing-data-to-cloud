@@ -57,6 +57,7 @@
                     axios
                     .delete(`https://crudcrud.com/api/8881dfd2a9b94ee0847e95d383d6922b/appoinment/${data._id}`)
                     .then((data)=>{
+                        perentelement.removeChild(childelement);
                         axios.get("https://crudcrud.com/api/8881dfd2a9b94ee0847e95d383d6922b/appoinment")
                         .then((data)=>{
                         for(let i=0;i<data.data.length;i++)
@@ -89,6 +90,7 @@
                     axios
                     .delete(`https://crudcrud.com/api/8881dfd2a9b94ee0847e95d383d6922b/appoinment/${data._id}`)
                     .then((data)=>{
+                        perentelement.removeChild(childelement);
                         axios.get("https://crudcrud.com/api/8881dfd2a9b94ee0847e95d383d6922b/appoinment")
                         .then()
                         .catch(err => console.log(err))
